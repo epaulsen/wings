@@ -19,3 +19,11 @@ User: Erling Paulsen
 - **File structure:** 12 top-level modules + 8 entity files in `entities/` subdirectory.
 - **Implementation plan:** 7 phases, skeleton→flight→weapons→targets→landing→enemies→polish.
 
+### 2026-03-20: Post-Review Bug Fixes (Goose NEEDS FIXES verdict)
+- **BUG-1 (physics.js — critical):** `vy` was accumulated with `+=` and an extra `* dt` factor, causing exponential downward velocity. Root cause: mirroring `vx` assignment incorrectly. Fix: SET `vy = sin(angle) * speed` each frame; gravity then ADDS on top when stalling. This matches how `vx` is handled.
+- **WARN-1 (player.js — critical):** Throttle was always 1 when fuelled, making deceleration impossible. `SAFE_LANDING_SPEED = 100` was unreachable. Fix: ArrowLeft/ArrowRight now provide thrust; releasing both keys sets `throttle = 0` and physics applies `speed *= 0.98` drag per tick, bleeding off speed for carrier approach.
+- **BUG-3 (player.js — medium):** State comparisons used raw string literals (`'takeoff'`, `'landing'`, `'rearming'`) instead of the `STATES` constants. `STATES` was not even imported. Silently would break if constants are ever renamed. Fix: import `STATES`, use `STATES.TAKEOFF` etc.
+- **BUG-2 (main.js — medium):** LANDING→REARMING transition was inside `cleanupEntities()`. State transitions belong in `update()` where ordering is deliberate. Fix: moved block to `update()` after `handleCollisions()`; `cleanupEntities()` now only filters dead entities.
+- **BUG-6 (main.js — medium):** Fuel-empty GAME_OVER check only fired when `player.y >= SEA_LEVEL - 2`, missing island ground (~460px). Fix: check `player.onGround && !isOverCarrier(...)` — catches both sea and island scenarios.
+- **BUG-5 (physics.js — minor):** Magic numbers `7000` and `560` replaced with `WORLD.WIDTH` and `CANVAS.HEIGHT - 40`. Added `CANVAS` and `WORLD` to physics.js import.
+- **Pattern learned:** Flight physics velocity must distinguish SET (base from angle) vs ADD (forces like gravity). Mixing the two creates unbounded accumulation. Always audit += vs = on velocity components.

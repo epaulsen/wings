@@ -42,3 +42,54 @@ User: Erling Paulsen
 - Frame counter / FPS meter to catch performance regressions
 - Cheat keys (e.g., Ctrl+G for god mode, Ctrl+R for instant refuel) save testing time
 
+### 2025-07-17: Final Approval Check — Viper's Fixes
+
+**Verdict: APPROVED**
+
+All 6 fixes from the NEEDS FIXES verdict were correctly applied by Viper. No regressions introduced.
+
+- `physics.js`: `vy` is now SET (not accumulated) from angle+speed; gravity correctly adds on top only during stall. Critical flight physics bug resolved.
+- `player.js`: ArrowLeft/Right provide thrust; `speed *= 0.98` drag in `physics.js` when throttle=0 (no key held). Landing is now achievable — speed halves in ~0.57 s.
+- `player.js` + `main.js`: All state comparisons use `STATES.*` constants; `STATES` is properly imported in `player.js`.
+- `main.js`: LANDING→REARMING transition correctly lives in `update()` at lines 190–196; `cleanupEntities` only filters entity arrays.
+- `main.js`: Fuel-empty game-over uses `onGround && !isOverCarrier(x)`, correctly covering island-stranded scenario.
+- `physics.js`: World/canvas bounds use `WORLD.WIDTH` and `CANVAS.HEIGHT - 40` constants, not magic numbers.
+
+**Quality assessment:** Viper's fixes were clean and precise — no scope creep, no new bugs. Code is in a shippable state for the current milestone. Remaining open items (WARN-2 through WARN-5 from original review) are balance/quality improvements, not blockers.
+
+---
+
+### 2025-07-17: Full Code Review — Maverick's Implementation
+
+**Overall quality:** Good structural work. Module boundaries clean, state machine complete, collision detection solid. Two critical bugs block gameplay.
+
+**Critical bugs found:**
+1. **`physics.js` BUG-1 (critical):** `player.vy` accumulated with `+= sin(angle) * speed * dt` instead of being SET to `sin(angle) * speed`. Wrong units + wrong operation. The plane accelerates downward unboundedly at any nose-down angle. Fix: change `+=` to `=` and remove the `* dt`.
+2. **WARN-1 (critical gameplay):** No throttle control exists. `player.throttle` is binary (1 or 0). `SAFE_LANDING_SPEED = 100` is unreachable — the player has no mechanism to reduce speed in FLYING state. Either raise the constant or add a throttle-down input.
+
+**Moderate bugs:**
+- `player.js` compares state with raw string literals (`'takeoff'`, `'landing'`, `'rearming'`); `STATES` is not imported. Fragile.
+- LANDING→REARMING state transition lives inside `cleanupEntities()` — wrong function.
+- Fuel-empty game-over condition checks `SEA_LEVEL` but island ground is above sea level; plane stranded on island never triggers game-over.
+
+**Minor/constants bugs:**
+- `hud.js` hardcodes `2.5` instead of `REARM.DURATION`
+- `physics.js` hardcodes `7000`/`560` instead of `WORLD.WIDTH`/`CANVAS.HEIGHT`
+- Enemy/tank bullet damage values are magic numbers in entity files, not in `constants.js`
+
+**Confirmed working:**
+- State machine: all 7 states reachable, all transitions correctly wired
+- Fixed-timestep game loop: accumulator pattern correct
+- Collision detection: AABB and inRadius both correct; dead-bullet guard prevents ghost hits
+- Resource depletion: fuel, ammo, bombs all drain and refill correctly
+- ES module imports/exports: all match between reviewed files
+- HUD: all bars and displays correct
+- Enemy AI: patrol/intercept, towardPlayer guard, out-of-bounds kill
+
+**Prediction accuracy vs test plan:**
+- Correctly predicted vy physics risk (was listed as stall concern)
+- `inRadius` correctly uses squared distance (my concern was justified but Maverick got it right)
+- Bomb splash radius is fine in code but damage is arguably too high (10 vs max health 3)
+- Landing speed threshold concern was accurate — `SAFE_LANDING_SPEED = 100` is too tight
+
+

@@ -187,12 +187,20 @@ function update(dt)
     handleCollisions();
     cleanupEntities();
 
+    if (game.state.current === STATES.LANDING && game.player.speed <= 10)
+    {
+        game.state.transition(STATES.REARMING);
+        game.rearmTimer = 0;
+        game.player.x = game.carrier.x + 36;
+        game.player.y = game.carrier.deckY - game.player.h;
+    }
+
     if (game.player.health <= 0)
     {
         game.state.transition(STATES.GAME_OVER);
     }
 
-    if (game.player.fuel <= 0 && game.player.y + game.player.h >= WORLD.SEA_LEVEL - 2)
+    if (game.player.fuel <= 0 && game.player.onGround && !isOverCarrier(game.player.x + game.player.w * 0.5))
     {
         game.state.transition(STATES.GAME_OVER);
     }
@@ -586,14 +594,6 @@ function cleanupEntities()
     game.bombs = game.bombs.filter((entity) => entity.alive);
     game.explosions = game.explosions.filter((entity) => entity.alive);
     game.enemyPlanes = game.enemyPlanes.filter((entity) => entity.alive);
-
-    if (game.state.current === STATES.LANDING && game.player.speed <= 10)
-    {
-        game.state.transition(STATES.REARMING);
-        game.rearmTimer = 0;
-        game.player.x = game.carrier.x + 36;
-        game.player.y = game.carrier.deckY - game.player.h;
-    }
 }
 
 function crashPlayer()

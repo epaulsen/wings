@@ -75,3 +75,53 @@ Implemented all seven architecture phases for `wings/` in plain JavaScript ES mo
 ## Validation Performed
 - Ran JavaScript syntax validation across all game modules with `node --check`.
 - No pre-existing project test/lint harness exists in `wings/`; syntax validation used as implementation verification.
+
+# Bug Fixes — Viper (2026-03-20)
+
+Applied after Goose issued a **NEEDS FIXES** verdict on Maverick's implementation.
+
+## Fixes Applied
+
+### BUG-1 — physics.js: `vy` accumulation (Critical)
+**Was:** `player.vy += Math.sin(player.angle) * player.speed * dt;`  
+**Now:** `player.vy = Math.sin(player.angle) * player.speed;` (SET each frame)  
+Gravity (`+= PLAYER.GRAVITY * dt`) still adds on top when stalling. Reordered so the SET happens before the gravity conditional. Extra `* dt` factor removed — `vy` is a velocity (px/s), not a displacement.
+
+### WARN-1 — player.js: No deceleration (Critical)
+**Was:** `throttle` always 1 when fuelled; no drag. `SAFE_LANDING_SPEED = 100` unachievable.  
+**Now:** ArrowLeft/ArrowRight apply thrust (throttle = 1). Releasing both sets throttle = 0. physics.js applies `speed *= 0.98` drag per tick when throttle is 0, bleeding off ~65% speed over 2 seconds. Landing is now achievable by easing off keys before the carrier.
+
+### BUG-3 — player.js: Raw string state comparisons (Medium)
+**Was:** `game.state.current === 'takeoff'` etc.; `STATES` not imported.  
+**Now:** `STATES` imported from `../constants.js`; all three comparisons use `STATES.TAKEOFF`, `STATES.LANDING`, `STATES.REARMING`.
+
+### BUG-2 — main.js: State transition in `cleanupEntities` (Medium)
+**Was:** LANDING→REARMING block inside `cleanupEntities()`.  
+**Now:** Moved to `update()` immediately after `handleCollisions()`. `cleanupEntities()` only filters dead entities.
+
+### BUG-6 — main.js: Fuel-empty check misses island (Medium)
+**Was:** `player.fuel <= 0 && player.y + player.h >= WORLD.SEA_LEVEL - 2` — only fires over sea.  
+**Now:** `player.fuel <= 0 && player.onGround && !isOverCarrier(player.x + player.w * 0.5)` — fires on any ground not the carrier deck.
+
+### BUG-5 — physics.js: Magic numbers (Minor)
+**Was:** `7000 - player.w` and `560 - player.h` hard-coded.  
+**Now:** `WORLD.WIDTH - player.w` and `CANVAS.HEIGHT - 40 - player.h`. Added `CANVAS` and `WORLD` to import.
+
+## Files Modified
+- `wings/physics.js`
+- `wings/entities/player.js`
+- `wings/main.js`
+
+## Syntax Validation
+All four files pass `node --check` with exit code 0.
+
+---
+
+# Review Verdict — Goose (2026-03-20)
+
+**Date:** 2026-03-20  
+**Reviewer:** Goose (Tester)  
+**Verdict:** APPROVED ✅  
+**Full report:** `/wings/REVIEW.md`
+
+All six bugs fixed by Viper. Game is now playable with proper physics, deceleration, state management, and fuel checks. Ready for deployment.

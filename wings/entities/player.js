@@ -1,4 +1,4 @@
-import { COLORS, PLAYER, WEAPON } from '../constants.js';
+import { COLORS, PLAYER, STATES, WEAPON } from '../constants.js';
 import { clamp, updateFlight } from '../physics.js';
 import { isOverCarrier } from '../world.js';
 
@@ -34,7 +34,7 @@ export function updatePlayer(player, dt, game)
     player.bombCooldown = Math.max(0, player.bombCooldown - dt);
     player.invulnTimer = Math.max(0, player.invulnTimer - dt);
 
-    if (game.state.current === 'takeoff')
+    if (game.state.current === STATES.TAKEOFF)
     {
         player.facing = 1;
         player.throttle = 1;
@@ -66,7 +66,7 @@ export function updatePlayer(player, dt, game)
         return;
     }
 
-    if (game.state.current === 'landing')
+    if (game.state.current === STATES.LANDING)
     {
         player.angle *= 0.94;
         player.speed = Math.max(0, player.speed - PLAYER.BRAKE_DECELERATION * dt);
@@ -77,7 +77,7 @@ export function updatePlayer(player, dt, game)
         return;
     }
 
-    if (game.state.current === 'rearming')
+    if (game.state.current === STATES.REARMING)
     {
         player.onGround = true;
         player.speed = 0;
@@ -110,6 +110,17 @@ function handlePitchAndFacing(player, dt, input)
         player.facing = 1;
     }
 
+    // Thrust only when a direction key is held and fuel remains; otherwise coast (drag applied in physics)
+    const thrusting = input.isDown('ArrowLeft') || input.isDown('ArrowRight');
+    if (player.fuel <= 0 || !thrusting)
+    {
+        player.throttle = 0;
+    }
+    else
+    {
+        player.throttle = 1;
+    }
+
     if (!player.onGround)
     {
         if (input.isDown('ArrowUp'))
@@ -124,15 +135,6 @@ function handlePitchAndFacing(player, dt, input)
     }
 
     player.angle = clamp(player.angle, -PLAYER.MAX_PITCH, PLAYER.MAX_PITCH);
-
-    if (player.fuel <= 0)
-    {
-        player.throttle = 0;
-    }
-    else
-    {
-        player.throttle = 1;
-    }
 }
 
 export function canShoot(player)
