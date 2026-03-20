@@ -1,0 +1,6 @@
+{
+  "version": "1.0",
+  "universe_allowlist": ["top_gun"],
+  "max_agents": 10,
+  "allow_overflow": true
+}
