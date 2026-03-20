@@ -15,6 +15,8 @@
 | Viper | Lead | .squad/agents/viper/charter.md | active |
 | Maverick | Game Developer | .squad/agents/maverick/charter.md | active |
 | Goose | Tester | .squad/agents/goose/charter.md | active |
+| BeanBag | Marketing Specialist | .squad/agents/beanbag/charter.md | active |
+| BeanBag | Marketing Specialist | .squad/agents/beanbag/charter.md | active |
 | Scribe | Session Logger | .squad/agents/scribe/charter.md | active |
 | Ralph | Work Monitor | — | active |
 
