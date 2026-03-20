@@ -37,3 +37,41 @@ Skeleton → Player Flight → Weapons → Targets & Scoring → Landing & Rearm
 
 ## Decision: Canvas 2D Primitives First
 No sprites in phase 1. Everything rendered with fillRect, simple shapes, and gradients. Sprite support swapped in later via drawImage.
+
+# Implementation Decisions — Maverick (2026-03-20)
+
+## Scope Completed
+Implemented all seven architecture phases for `wings/` in plain JavaScript ES modules and HTML Canvas, including full gameplay loop, state machine, entities, collisions, weapons, enemy AI, rearming flow, HUD, audio hooks, and visual polish.
+
+## Key Technical Decisions
+
+1. **Entity model remained plain objects**
+   - Every entity uses a flat object with `type`, transform, physics, and gameplay fields.
+   - Kept update/render logic in per-entity modules for clarity and low coupling.
+
+2. **Single owner game loop in `main.js`**
+   - Fixed timestep 60Hz with accumulator and dt clamping to prevent unstable physics.
+   - Centralized update order: input/state → player → entities → collisions → cleanup → camera.
+
+3. **Landing and crash logic tuned for game feel**
+   - Carrier landing only succeeds when speed and angle are within safe thresholds.
+   - Unsafe touchdowns or terrain impacts force a crash/game-over path with explosion + shake.
+
+4. **Visual quality-first Canvas primitives**
+   - Implemented gradient sky, parallax clouds, patterned sea, shaped planes, detailed carrier/island, and multi-layer explosion effects.
+   - Prioritized clear silhouette readability while staying sprite-free per architecture.
+
+5. **Enemy combat behavior split by role**
+   - Ground units use subtype configs (troop/truck/tank) with patrol + optional anti-air fire.
+   - Enemy planes switch between patrol and intercept based on player detect range.
+
+6. **Resource and progression wiring**
+   - Full fuel/ammo/bombs/health tracking with rearming restoration rates and timer.
+   - Score bookkeeping by subtype and victory condition when all ground targets are dead.
+
+7. **Audio hooks implemented without asset dependency**
+   - Added procedural WebAudio fallback tones mapped to expected event names (`gun_fire`, `explosion`, etc.) so `play()` calls are functional now and swappable later.
+
+## Validation Performed
+- Ran JavaScript syntax validation across all game modules with `node --check`.
+- No pre-existing project test/lint harness exists in `wings/`; syntax validation used as implementation verification.
