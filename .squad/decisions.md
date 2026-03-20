@@ -125,3 +125,119 @@ All four files pass `node --check` with exit code 0.
 **Full report:** `/wings/REVIEW.md`
 
 All six bugs fixed by Viper. Game is now playable with proper physics, deceleration, state management, and fuel checks. Ready for deployment.
+
+# Marketing README — BeanBag (2026-03-20)
+
+**Date:** 2026-03-20  
+**Author:** BeanBag (Marketing Specialist)  
+**Status:** COMPLETE ✅
+
+## Decision: Tagline & Emotional Hook
+
+**Tagline:** "Fire up. Take off. Come back alive."
+
+**Rationale:** 
+- Captures mission-critical tension (the core gameplay loop)
+- Mirrors the three phases: preparation → action → landing
+- Short, punchy, era-appropriate (WWII pilot speak)
+- Emphasizes the procedural challenge of landing—a unique selling point vs other arcade shooters
+
+## Decision: Feature Translation to Player Benefits
+
+**Approach:** 
+Translated every technical feature into emotional/gameplay benefit:
+
+- ❌ "200-round machine gun" 
+- ✅ "Unleash 200 rounds of tracer fire"
+
+- ❌ "Limited fuel system"
+- ✅ "Every second of throttle matters. Turn back too late and you're ditching in the Pacific"
+
+- ❌ "Carrier landing logic"
+- ✅ "Master the procedural challenge of launching from a pitching deck and threading the needle on return"
+
+**Why:** Players want to feel the experience, not read technical specs.
+
+## Decision: SVG Screenshot Approach
+
+**Rationale:**
+- Game is a browser canvas, no built-in screenshot system
+- SVG is lightweight, scalable, version-controllable (unlike PNG/JPG)
+- Pixel-art aesthetic matches the game's visual simplicity
+- Each screenshot tells a story:
+  1. **Title Screen** — Fantasy/aspiration (stars, gold text, silhouette)
+  2. **Combat** — Intensity (tracers, explosions, HUD density)
+  3. **Island** — Tactical depth (ground targets, strafing geometry)
+  4. **Carrier** — Precision skill (landing vectors, fuel critical)
+
+**Color Palette:** Used game constants:
+- Sky: `#1a1a4e` (top) → `#87CEEB` (horizon)
+- Sea: `#0d3b6e` (deep)
+- Island: `#5a7247` (olive terrain)
+- Player: `#3d4c2e` (silhouette)
+- Enemy: `#8b1a1a` (red)
+
+## Decision: README Structure
+
+**Order:** Story → Features → Controls → Getting Started → Tips → Scoring → Tech → Development
+
+**Why this order:**
+1. Hook with **About** (mission narrative)
+2. Sell the **Features** (show breadth)
+3. **Controls** (remove friction)
+4. **How to Play** (get them in the game NOW)
+5. **Tips** (make them feel expert-adjacent)
+6. **Scoring** (clarity on progression)
+7. **Tech** (brief, for other devs)
+
+**Tone:** Arcade box copy + modern indie game landing page. Short punchy sentences mixed with atmosphere.
+
+## Decision: Tips & Tricks Section
+
+**Included 6 tactical tips:**
+1. Fuel management
+2. Approach geometry
+3. Strafing vs circling
+4. Landing technique
+5. Bomb strategy
+6. Enemy plane trade-off
+
+**Why:** Makes the player feel like they have agency and expertise before they even launch the game. Reduces "I don't know what I'm doing" frustration. Classic arcade strategy guide vibe.
+
+## Decision: Minimal Technical Section
+
+**What was cut:**
+- ES modules deep dive
+- Build system explanation
+- Asset pipeline details
+
+**What was kept:**
+- "Vanilla JavaScript + ES modules + HTML Canvas"
+- "No frameworks, no build step, no dependencies"
+- "Fixed 60 Hz physics"
+- Link to `constants.js` for tweaking
+
+**Why:** Players don't care about the tech stack. Devs who fork the game will read the code. This section is just enough to convey "it's simple and runs everywhere."
+
+## Decision: Scoring Table
+
+**Visible progression loop:**
+- Troop: 10 pts
+- Truck: 25 pts
+- Tank: 50 pts
+- Enemy Plane: 100 pts
+
+**Why:** 
+- Clarifies the risk/reward of different targets
+- Makes progression **visible and understandable**
+- Explains why tanks feel better to hunt than troops
+
+## Artifacts Created
+
+1. `/wings/README.md` — New marketing README (replaced old technical stub)
+2. `/wings/assets/screenshots/screenshot-1-title.svg` — Title screen
+3. `/wings/assets/screenshots/screenshot-2-combat.svg` — Combat scene
+4. `/wings/assets/screenshots/screenshot-3-island.svg` — Island strafing
+5. `/wings/assets/screenshots/screenshot-4-carrier.svg` — Carrier landing
+
+All files use game palette and maintain pixel-art aesthetic.

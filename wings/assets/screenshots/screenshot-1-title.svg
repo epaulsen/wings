@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFA500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Deep space background -->
+  <rect width="960" height="540" fill="#0a0a2e"/>
+  
+  <!-- Star field -->
+  <circle cx="80" cy="60" r="1.5" fill="#ffffff"/>
+  <circle cx="120" cy="80" r="1" fill="#ffffff"/>
+  <circle cx="160" cy="40" r="1.5" fill="#ffffff"/>
+  <circle cx="200" cy="120" r="1" fill="#ffffff"/>
+  <circle cx="250" cy="70" r="1.5" fill="#ffffff"/>
+  <circle cx="300" cy="100" r="1" fill="#ffffff"/>
+  <circle cx="350" cy="50" r="1.5" fill="#ffffff"/>
+  <circle cx="400" cy="130" r="1" fill="#ffffff"/>
+  <circle cx="450" cy="75" r="1.5" fill="#ffffff"/>
+  <circle cx="500" cy="95" r="1" fill="#ffffff"/>
+  <circle cx="550" cy="55" r="1.5" fill="#ffffff"/>
+  <circle cx="600" cy="110" r="1" fill="#ffffff"/>
+  <circle cx="650" cy="70" r="1.5" fill="#ffffff"/>
+  <circle cx="700" cy="85" r="1" fill="#ffffff"/>
+  <circle cx="750" cy="65" r="1.5" fill="#ffffff"/>
+  <circle cx="800" cy="100" r="1" fill="#ffffff"/>
+  <circle cx="850" cy="45" r="1.5" fill="#ffffff"/>
+  <circle cx="900" cy="90" r="1" fill="#ffffff"/>
+  <circle cx="930" cy="55" r="1" fill="#ffffff"/>
+  
+  <!-- Title text -->
+  <text x="480" y="200" font-family="Arial, sans-serif" font-size="90" font-weight="bold" text-anchor="middle" fill="url(#titleGrad)" stroke="#FFD700" stroke-width="2" letter-spacing="8">WINGS</text>
+  <text x="480" y="290" font-family="Arial, sans-serif" font-size="90" font-weight="bold" text-anchor="middle" fill="url(#titleGrad)" stroke="#FFD700" stroke-width="2" letter-spacing="8">OF FURY</text>
+  
+  <!-- Subtitle -->
+  <text x="480" y="340" font-family="Arial, sans-serif" font-size="28" font-weight="normal" text-anchor="middle" fill="#ffffff" letter-spacing="2">A WWII AERIAL COMBAT GAME</text>
+  
+  <!-- Silhouetted plane flying across bottom -->
+  <g transform="translate(150, 420)">
+    <!-- Fuselage -->
+    <rect x="0" y="8" width="60" height="8" fill="#1a1a1a"/>
+    <!-- Wings -->
+    <rect x="-20" y="10" width="100" height="4" fill="#1a1a1a"/>
+    <!-- Tail wing -->
+    <polygon points="55,10 65,8 65,16" fill="#1a1a1a"/>
+    <!-- Cockpit -->
+    <circle cx="12" cy="10" r="3" fill="#2a2a2a"/>
+  </g>
+  
+  <!-- Pulsing "PRESS SPACE" text -->
+  <text x="480" y="500" font-family="monospace" font-size="24" font-weight="bold" text-anchor="middle" fill="#00ff00" opacity="1" letter-spacing="3">PRESS SPACE TO TAKE OFF</text>
+  
+  <!-- Animated pulse effect (indicator) -->
+  <circle cx="480" cy="485" r="4" fill="none" stroke="#00ff00" stroke-width="1" opacity="0.6"/>
+</svg>

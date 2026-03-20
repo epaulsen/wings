@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a4e;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#4a7ba7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#87CEEB;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky gradient -->
+  <rect width="960" height="540" fill="url(#skyGrad)"/>
+  
+  <!-- Some clouds -->
+  <ellipse cx="100" cy="80" rx="60" ry="30" fill="rgba(255,255,255,0.5)"/>
+  <ellipse cx="150" cy="100" rx="50" ry="25" fill="rgba(255,255,255,0.4)"/>
+  <ellipse cx="800" cy="120" rx="70" ry="35" fill="rgba(255,255,255,0.45)"/>
+  
+  <!-- Sea at bottom -->
+  <rect y="420" width="960" height="120" fill="#0d3b6e"/>
+  <!-- Sea wave pattern -->
+  <line x1="0" y1="430" x2="960" y2="430" stroke="#1a5f9e" stroke-width="2" opacity="0.6"/>
+  <line x1="0" y1="460" x2="960" y2="460" stroke="#1a5f9e" stroke-width="1.5" opacity="0.4"/>
+  
+  <!-- HUD Bar at top -->
+  <rect x="10" y="10" width="940" height="35" fill="rgba(0, 0, 0, 0.45)" stroke="#f8f8f8" stroke-width="1"/>
+  <text x="20" y="32" font-family="monospace" font-size="14" fill="#f8f8f8">FUEL</text>
+  <rect x="70" y="20" width="60" height="12" fill="#2a3a2a" stroke="#f8f8f8" stroke-width="1"/>
+  <rect x="70" y="20" width="45" height="12" fill="#00ff00"/>
+  
+  <text x="140" y="32" font-family="monospace" font-size="14" fill="#f8f8f8">AMMO: 147</text>
+  
+  <text x="260" y="32" font-family="monospace" font-size="14" fill="#ff4444">●●</text>
+  
+  <text x="320" y="32" font-family="monospace" font-size="14" fill="#f8f8f8">HEALTH</text>
+  <rect x="410" y="20" width="80" height="12" fill="#2a3a2a" stroke="#f8f8f8" stroke-width="1"/>
+  <rect x="410" y="20" width="64" height="12" fill="#ff6644"/>
+  
+  <text x="510" y="32" font-family="monospace" font-size="14" fill="#f8f8f8">ALT: 140m</text>
+  
+  <text x="680" y="32" font-family="monospace" font-size="14" fill="#ffff00">SCORE: 850</text>
+  
+  <!-- Player plane (olive silhouette) - firing -->
+  <g transform="translate(300, 200)">
+    <!-- Fuselage -->
+    <rect x="0" y="8" width="50" height="10" fill="#3d4c2e"/>
+    <!-- Wings -->
+    <polygon points="-15,12 50,12 50,15 -15,15" fill="#3d4c2e"/>
+    <!-- Tail -->
+    <polygon points="45,10 60,8 60,18" fill="#3d4c2e"/>
+    <!-- Cockpit -->
+    <circle cx="10" cy="12" r="3" fill="#7ec8e3"/>
+  </g>
+  
+  <!-- Tracer fire (yellow streaks) -->
+  <line x1="320" y1="205" x2="520" y2="185" stroke="#ffff00" stroke-width="2" opacity="0.8"/>
+  <line x1="320" y1="212" x2="530" y2="200" stroke="#ffff00" stroke-width="2" opacity="0.8"/>
+  <line x1="320" y1="220" x2="525" y2="215" stroke="#ffff00" stroke-width="2" opacity="0.8"/>
+  
+  <!-- Enemy plane (red) in distance -->
+  <g transform="translate(600, 150)">
+    <rect x="0" y="6" width="40" height="8" fill="#8b1a1a"/>
+    <polygon points="-12,9 40,9 40,12 -12,12" fill="#8b1a1a"/>
+    <polygon points="35,7 50,5 50,15" fill="#8b1a1a"/>
+    <circle cx="8" cy="9" r="2" fill="#5a0f0f"/>
+  </g>
+  
+  <!-- Explosion circles (orange/yellow) over island -->
+  <circle cx="200" cy="380" r="35" fill="#ff8800" opacity="0.7"/>
+  <circle cx="200" cy="380" r="25" fill="#ffdd00" opacity="0.8"/>
+  <circle cx="210" cy="370" r="15" fill="#ffff99" opacity="0.9"/>
+  
+  <circle cx="450" cy="395" r="28" fill="#ff6600" opacity="0.6"/>
+  <circle cx="450" cy="395" r="18" fill="#ffcc00" opacity="0.8"/>
+  
+  <!-- Ground/Island at bottom (green island silhouette) -->
+  <polygon points="0,420 120,380 200,390 350,370 500,400 960,380 960,540 0,540" fill="#5a7247" opacity="0.9"/>
+  
+  <!-- Ground targets (small shapes) -->
+  <g transform="translate(150, 400)">
+    <!-- Tank -->
+    <rect x="0" y="0" width="20" height="10" fill="#556677"/>
+    <polygon points="8,-3 12,-3 12,0 8,0" fill="#556677"/>
+  </g>
+  
+  <g transform="translate(280, 405)">
+    <!-- Truck -->
+    <rect x="0" y="0" width="25" height="8" fill="#3d4c2e"/>
+    <circle cx="8" cy="10" r="2" fill="#333"/>
+  </g>
+  
+  <g transform="translate(420, 400)">
+    <!-- Troops -->
+    <rect x="0" y="0" width="2" height="4" fill="#888"/>
+    <rect x="6" y="0" width="2" height="4" fill="#888"/>
+    <rect x="12" y="0" width="2" height="4" fill="#888"/>
+  </g>
+</svg>
